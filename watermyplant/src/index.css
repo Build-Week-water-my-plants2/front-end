@@ -56,19 +56,23 @@ nav {
   margin-bottom: 24px;
 }
 h1, h2, h3, h4 {
-  color: royalblue;
+  color: #1c5d76;
 }
 h1 {
-  font-size: 1.5rem;
+  font-size: 2.0rem;
   margin-bottom: 1rem;
 }
 h2 {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+h3 {
+  font-size: 1.6rem;
   margin-bottom: 1.2rem;
 }
 label {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
 }
 input, select, button {
   height: 1.5rem;

@@ -8,10 +8,8 @@ import Signup from './components/Signup';
 
 //the shape of the state that drives the form
 const initialFormValues = {
-  ///// TEXT INPUTS /////
   username: '',
   phoneNumber: '',
-  ///// DROPDOWN /////
   password: '',
 }
 
@@ -25,9 +23,9 @@ const [formValues, setFormValues] = useState(initialFormValues);
       <div className = "App">
         <nav>
           <h1 className='site-header'>Welcome to WaterMyPlant 2.0</h1>
-          <div className='nav-links'>          
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+          <div className='nav-links'>   
+            <div>already have a account: </div>       
+            <Link to="/login"> Login here</Link>           
           </div>
         </nav>        
         <Route exact path = "/login" >
@@ -38,7 +36,14 @@ const [formValues, setFormValues] = useState(initialFormValues);
             // errorText={errorText}
           />  
         </Route>
-        <Route exact path = "/signup" components = {Signup} />        
+        <Route exact path = "/signup" >
+          <Signup  
+            values={formValues}
+            // update={updateForm}
+            // submit={submitForm}
+            // errorText={errorText}
+          />  
+        </Route>                
       </div>  
     </Router>    
   );

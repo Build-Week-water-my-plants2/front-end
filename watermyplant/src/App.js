@@ -20,10 +20,10 @@ function App() {
         </nav>        
         <Route exact path = "/login" >
           <Login  
-            // values={formValues}
-            // update={updateForm}
-            // submit={submitForm}
-            // errorText={errorText}
+            values={formValues}
+            update={updateForm}
+            submit={submitForm}
+            errorText={errorText}
           />  
         </Route>
         <Route exact path = "/signup" components = {Signup} />        

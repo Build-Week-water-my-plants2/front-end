@@ -59,7 +59,7 @@ const AddPlantForm = () => {
                         />
                     </label>
 
-                    <button>Add Plant</button>
+                    <button>Add Plant to List</button>
                 </form>
             </div>
         </> 

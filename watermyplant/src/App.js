@@ -1,13 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 
+//the shape of the state that drives the form
+const initialFormValues = {
+  ///// TEXT INPUTS /////
+  username: '',
+  phoneNumber: '',
+  ///// DROPDOWN /////
+  password: '',
+}
+
 function App() {
-  
+
+  // THE STATE TO HOLD ALL VALUES OF THE FORM!
+const [formValues, setFormValues] = useState(initialFormValues);
+
   return (
     <Router>
       <div className = "App">
@@ -21,9 +33,9 @@ function App() {
         <Route exact path = "/login" >
           <Login  
             values={formValues}
-            update={updateForm}
-            submit={submitForm}
-            errorText={errorText}
+            // update={updateForm}
+            // submit={submitForm}
+            // errorText={errorText}
           />  
         </Route>
         <Route exact path = "/signup" components = {Signup} />        

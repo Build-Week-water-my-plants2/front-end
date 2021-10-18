@@ -1,6 +1,6 @@
 import React, { useState, useHistory } from 'react';
 import { Route } from 'react-router-dom';
-import AddPlant from './AddPlant';
+import AddPlantForm from './AddPlantForm';
 
 
 const HomePage =  () => {
@@ -8,7 +8,7 @@ const HomePage =  () => {
     
     return(
         <div>
-            <Route path = "/addPlant" component = {AddPlant} />
+            <Route path = "/addPlant" component = {AddPlantForm} />
             <button>Add Plant</button>
         </div>
     )

@@ -23,30 +23,32 @@ export default function Login (props) {
       }
 
     return (
-        // build the form here
+        // build the login form here
         
         <form className='form container' onSubmit={onSubmit}>
             {/* // temp comments, need delete later */}
             <h2>Hello</h2>   
-            <div>Sign in to WatermyPlant 2.0 or <Link to='/signup'> create an account</Link> </div>          
+            
+            <div>Sign in to WatermyPlant 2.0 or <Link to='/'> create an account</Link> </div>          
             <div className='form-group inputs'>
-            <div>Username or email </div>                
-            <label>
-            {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
-                Inputs render what they're told - their current value comes from app state.
-                At each keystroke, a change handler fires to change app state. */}
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="type an username here..."
-                    onChange={onChange}
-                    value={values.username}
-                />
-            </label>
-            
-
-            </div>
-            
+                <div>Username or email  
+                    {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
+                    Inputs render what they're told - their current value comes from app state.
+                    At each keystroke, a change handler fires to change app state. */}              
+                    <label>     
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="type an username here..."
+                            onChange={onChange}
+                            value={values.username}
+                        />
+                    </label>
+                    <Link to='/password'> 
+                        <button>Continue</button>
+                    </Link>
+                </div>
+            </div>            
         </form>
     );
 }

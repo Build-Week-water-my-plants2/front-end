@@ -13,7 +13,7 @@ code {
 }
 
 /* the css con-response to App part */
-nav {
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,23 +22,23 @@ nav {
   margin-bottom: 32px;
 }
 
-.nav-links {
+.header-links {
   display: flex;
   justify-content: space-between;
 }
 
-.nav-links a {
+.header-links a {
   text-decoration: none;
   color: #1c5d76;
   font-weight: bold;
   margin-right: 8px;
 }
 
-.nav-links a:last-of-type {
+.header-links a:last-of-type {
   margin-right: 0;
 }
 
-.nav-links a.active {
+.header-links a.active {
   border-bottom: 1px solid #1c5d76;
 }
 
@@ -71,8 +71,8 @@ h3 {
   margin-bottom: 1.2rem;
 }
 label {
-  /* display: flex; */
-  /* justify-content: space-between; */
+  display: flex; 
+  justify-content: space-between;
 }
 input, select, button {
   height: 1.5rem;
@@ -84,13 +84,11 @@ button {
   background-color: white;
   border: 1px solid crimson;  
 }
-
 button:disabled {
   cursor: not-allowed;
   color: darkgray;
   border-color: darkgray;
 }
-
 .submit {
   display: flex;
   justify-content: flex-end;

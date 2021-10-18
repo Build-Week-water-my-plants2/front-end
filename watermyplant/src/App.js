@@ -20,15 +20,14 @@ const [formValues, setFormValues] = useState(initialFormValues);
 
   return (
     <Router>
-      <div className = "App">
-        <nav>
-          <h1 className='site-header'>Welcome to WaterMyPlant 2.0</h1>
-          <div className='nav-links'>   
-            <div>already have a account: </div>       
-            <Link to="/login"> Login here</Link>           
-          </div>
-        </nav>        
-        <Route exact path = "/login" >
+      <div className = "App">     
+        <Route exact path = "/login" >        
+          <header>
+            <h1 className='site-header'>WaterMyPlant 2.0</h1>
+            <div className='header-links'>   
+              <div>Tell us what you think</div>                        
+            </div>
+          </header>   
           <Login  
             values={formValues}
             // update={updateForm}
@@ -36,7 +35,14 @@ const [formValues, setFormValues] = useState(initialFormValues);
             // errorText={errorText}
           />  
         </Route>
-        <Route exact path = "/signup" >
+        <Route exact path = "/" >
+          <header>
+            <h1 className='site-header'>WaterMyPlant 2.0</h1>
+            <div className='header-links'>   
+              <div>already have a account: </div>       
+              <Link to="/login"> Login here</Link>           
+            </div>
+          </header>  
           <Signup  
             values={formValues}
             // update={updateForm}

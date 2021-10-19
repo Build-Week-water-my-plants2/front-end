@@ -2,9 +2,6 @@ import React from 'react'
 
 export default function User (props) {
    
-
-    console.log('props:', props);
-
     if (!props) {
         return <h3>Working fetching the user&apos;s details...</h3>
       }

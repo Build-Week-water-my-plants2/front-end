@@ -1,11 +1,11 @@
 import './App.css';
-import React, { useState, useEffect }  from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import React, { useState }  from 'react';
+import {Route, Link } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import User from './components/User'
-import Login from './components/Login';
+// import Login from './components/Login';
 import Signup from './components/Signup';
-import Password from './components/Password';
+// import Password from './components/Password';
 import axios from 'axios';
 
 import constants from './components/data/constants.js';
@@ -20,6 +20,7 @@ const initialFormValues = {
   // firstname: '',
   // lastname: '',
   username: '',
+  email:'',
   phoneNumber: '',
   password: ''
 }
@@ -29,6 +30,7 @@ const initialFormErrors = {
   // firstname: '',
   // lastname: '',
   username: '',
+  email:'',
   phoneNumber: '',
   password: ''
 }
@@ -46,7 +48,7 @@ const initialUsers = [
     username: 'beatlesm',
     email: 'beatlesm@somecompany.com',
     phoneNumber: '4151234567',
-    password:'4567WSXedc'
+    password: '4567WSXedc'
   },
   {
     // firstname: '',
@@ -87,8 +89,9 @@ const postNewUser = newUser => {
   //    IMPLEMENT! ON SUCCESS ADD NEWLY CREATED USER TO STATE
   //    helper to [POST] `newUser` to `BASE_URL`
   //    and regardless of success or failure, the form should reset
-  axios.post('http://somewhere.com/api/users', newUser)
+  axios.post('http://buddies.com/api/friends', newUser)
     .then(res => {
+      debugger
       setUsers([res.data, ...users]);
     }).catch(err => {
       console.error(err);
@@ -103,7 +106,7 @@ const inputChange = (name, value) => {
   // validate(name, value);
   setFormValues({
     ...formValues,
-    [name]: value // NOT AN ARRAY
+    [name]: value 
   })
 }
 
@@ -117,12 +120,12 @@ const formSubmit = () => {
     phoneNumber: formValues.phoneNumber.trim(),
     password: formValues.password.trim()    
   }  
-  console.log(newUser);
-  postNewUser(newUser);  
+  console.log('newUser in f formSubmit: ', newUser);
+  // postNewUser(newUser);  
 }
 
   return (
-    <Router>
+    // <Router>
         <div className = "App"> 
         
         <Route exact path = "/login" >        
@@ -132,13 +135,13 @@ const formSubmit = () => {
               <div>Tell us what you think</div>                        
             </div>
           </header>   
-          <Login  
+          {/* <Login  
             values={formValues}
             // change={inputChange}
             // update={updateForm}
             // submit={submitForm}
             // errorText={errorText}
-          />  
+          />   */}
         </Route>
 
         <Route exact path = "/password" >        
@@ -148,13 +151,13 @@ const formSubmit = () => {
               <div>Tell us what you think</div>                        
             </div>
           </header>   
-          <Password  
+          {/* <Password  
             values={formValues}
             change={inputChange}
             submit={formSubmit}
             // update={updateForm}            
             // errorText={errorText}
-          />  
+          />   */}
         </Route>
         
         <Route exact path = "/signup" >
@@ -181,10 +184,7 @@ const formSubmit = () => {
             </div>
           </header>  
           <HomePage  
-            values={formValues}
-            // update={updateForm}
-            // submit={submitForm}
-            // errorText={errorText}
+            values={formValues}            
           />  
         </Route> 
         
@@ -207,9 +207,10 @@ const formSubmit = () => {
             })
           }
           
-        </Route>            
+        </Route> 
+
       </div>  
-    </Router>    
+    // </Router>    
   );
 }
 

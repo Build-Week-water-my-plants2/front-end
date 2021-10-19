@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect }  from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -8,13 +7,20 @@ import Signup from './components/Signup';
 import Password from './components/Password';
 import axios from 'axios';
 
+import constants from './components/data/constants.js';
+
+const {BASE_URL,  API_KEY} = constants;
+
+console.log('BASE_URL', BASE_URL);
+console.log('API_KEY', API_KEY);
+
 //the shape of the state that drives the form
 const initialFormValues = {
   // firstname: '',
   // lastname: '',
   username: '',
   phoneNumber: '',
-  password: '',
+  password: ''
 }
 
 //the shape of the state that drives the form errors information
@@ -23,7 +29,7 @@ const initialFormErrors = {
   // lastname: '',
   username: '',
   phoneNumber: '',
-  password: '',
+  password: ''
 }
 
 // the shape of the state that drives the users data information 

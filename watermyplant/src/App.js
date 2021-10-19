@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Password from './components/Password';
+import axios from 'axios';
 
 //the shape of the state that drives the form
 const initialFormValues = {
@@ -29,6 +30,7 @@ const initialFormErrors = {
 // const initialUsers = []
 
 // initialUsers data for test which can be delete later in placed by above 
+// TEST TEST TEST !!!!!! - can delete after all requirement full filled
 const initialUsers = [
   { 
     // firstname: '',
@@ -57,6 +59,18 @@ const [users, setUsers] = useState(initialUsers); // array of user objects
 const [formValues, setFormValues] = useState(initialFormValues) // object
 const [formErrors, setFormErrors] = useState(initialFormErrors) // object
 const [disabled, setDisabled] = useState(initialDisabled)       // boolean
+
+// Helper function to get users date from database
+const getUsers = () => {
+  // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
+  // helper to [GET] all users from `http://somewhere.com/api/users` 
+  axios.get('http://somewhere.com/api/users')
+    .then(res => {
+      setUsers(res.data);
+    }).catch(err => {
+      console.error(err);
+    })
+}
 
   return (
     <Router>

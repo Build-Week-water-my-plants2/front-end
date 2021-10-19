@@ -42,6 +42,7 @@ const initialUsers = [
   { 
     // firstname: '',
     // lastname: '',
+    id: '1',
     username: 'beatlesm',
     email: 'beatlesm@somecompany.com',
     phoneNumber: '4151234567',
@@ -50,6 +51,7 @@ const initialUsers = [
   {
     // firstname: '',
     // lastname: '',
+    id: '2',
     username: 'soooj',
     email: 'soooj@somecompany.com',
     phoneNumber: '4151234568',
@@ -68,16 +70,17 @@ const [formErrors, setFormErrors] = useState(initialFormErrors) // object
 const [disabled, setDisabled] = useState(initialDisabled)       // boolean
 
 // Helper function to get users date from database
-const getUsers = () => {
-  // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
-  // helper to [GET] all users from `BASE_URL` 
-  axios.get('http://somewhere.com/api/users')
-    .then(res => {
-      setUsers(res.data);
-    }).catch(err => {
-      console.error(err);
-    })
-}
+// TEST TEST TEST - for test from initial date ---------- recover after read from database ---TEST TEST TEST
+// const getUsers = () => {
+//   // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
+//   // helper to [GET] all users from `BASE_URL` 
+//   axios.get('http://somewhere.com/api/users')
+//     .then(res => {
+//       setUsers(res.data);
+//     }).catch(err => {
+//       console.error(err);
+//     })
+// }
 
 // Helper function to post users date to database and reset 
 const postNewUser = newUser => {
@@ -120,7 +123,8 @@ const formSubmit = () => {
 
   return (
     <Router>
-      <div className = "App">     
+        <div className = "App"> 
+        
         <Route exact path = "/login" >        
           <header>
             <h1 className='site-header'>WaterMyPlant 2.0</h1>
@@ -163,8 +167,8 @@ const formSubmit = () => {
           </header>  
           <Signup  
             values={formValues}
-            // update={updateForm}
-            // submit={submitForm}
+            change={inputChange}
+            submit={formSubmit}
             // errorText={errorText}
           />  
         </Route>     
@@ -183,6 +187,7 @@ const formSubmit = () => {
             // errorText={errorText}
           />  
         </Route> 
+        
 
         <Route exact path = "/users">
 
@@ -193,14 +198,15 @@ const formSubmit = () => {
               <Link to="/signup"> Sign out </Link>           
             </div>
           </header> 
-
+          
           {
             users.map(user => {
               return (
                 <User key={user.id} details={user} />
               )
             })
-          }  
+          }
+          
         </Route>            
       </div>  
     </Router>    

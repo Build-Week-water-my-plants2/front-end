@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Signup (props) {
     // destruct the props first
@@ -23,25 +24,46 @@ export default function Signup (props) {
 
     return (
         // build the form here
-        <form className='form container' onSubmit={onSubmit}>            
-            <h2>Create an account or already have an account</h2>  
-            <div className='form-group inputs'>
-            <label>Username
-            {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
-                Inputs render what they're told - their current value comes from app state.
-                At each keystroke, a change handler fires to change app state. */}
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="type an username here..."
-                    onChange={onChange}
-                    value={values.username}
-                />
-            </label>
-            
-
+        <form className='form-wrapper' onSubmit={onSubmit}> 
+            <div className = 'container'> 
+                <p className ='createAcc'> Create an account </p>
+                <div className='form-group'>                     
+                    {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
+                    Inputs render what they're told - their current value comes from app state.
+                    At each keystroke, a change handler fires to change app state. */}              
+                    <div>    
+                        <label> 
+                            <input 
+                                type="text" 
+                                name="username" 
+                                placeholder="Username" 
+                                onChange={onChange} 
+                                value={values.username} 
+                                /> 
+                        </label> 
+                        <label> 
+                            <input 
+                                type="text" 
+                                name="phoneNumber" 
+                                placeholder="Phone Number" 
+                                onChange={onChange} 
+                                value={values.phoneNumber} 
+                                /> 
+                        </label>
+                        <label> 
+                            <input 
+                                type="text" 
+                                name="password" 
+                                placeholder="Password" 
+                                onChange={onChange} 
+                                value={values.password} 
+                                /> 
+                        </label>
+                        <div className = 'plength'>By Creating an account, you agree to our User Agreement and acknowledge reading our User Privacy Notice.</div>
+                        <button> <Link to='/password'>Create account</Link> </button>
+                    </div>
+                </div>
             </div>
-            
         </form>
     );
 }

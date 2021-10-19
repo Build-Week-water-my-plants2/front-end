@@ -35,7 +35,6 @@ blockquote:before, blockquote:after, q:before, q:after {
 blockquote, q {
 	quotes: "" "";
 	}
-
   
 *{
 	box-sizing: border-box;
@@ -107,6 +106,13 @@ h2 {
 h3 {
   font-size: 1.6rem;
   margin-bottom: 1.2rem;
+}
+
+.plength{  
+  font-size: 1.2rem;
+  width: 300px;
+  margin: 8px 8px 8px 8px;
+  text-align: justify;
 }
 
 input, select, button {
@@ -187,4 +193,9 @@ button:disabled {
   font-size: 3.7rem;
   font-weight: bold;
 }
+.createAcc {
+  font-size: 3.0rem;
+  font-weight: bold;
+}
+
 

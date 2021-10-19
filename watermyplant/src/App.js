@@ -56,8 +56,8 @@ const [formValues, setFormValues] = useState(initialFormValues);
           <header>
             <h1 className='site-header'>WaterMyPlant 2.0</h1>
             <div className='header-links'>   
-              <div>already have a account: </div>       
-              <Link to="/login"> Login here</Link>           
+              <div>Already a member? </div>       
+              <Link to="/login"> Sign in </Link>           
             </div>
           </header>  
           <Signup  

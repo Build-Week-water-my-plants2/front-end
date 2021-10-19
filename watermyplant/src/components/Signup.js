@@ -13,11 +13,11 @@ export default function Signup (props) {
         const {name, value} = evt.target;
         update(name, value);
     }
-
-    // IMPLEMENT the submit handler
-    // a) don't allow the browser to reload!
-    // c) use the `submit` callback coming in through props 
+    
     const onSubmit = evt => {
+        // IMPLEMENT the submit handler
+        // a) don't allow the browser to reload!
+        // c) use the `submit` callback coming in through props 
         evt.preventDefault();
         submit();
       }

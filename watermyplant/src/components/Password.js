@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Login (props) {
-    // destruct the props first
+export default function password (props) {
+
     const { values, update, submit, errorText } = props
 
     const onChange = evt => {
@@ -21,14 +21,14 @@ export default function Login (props) {
         evt.preventDefault();
         submit();
       }
-
+    
     return (
         // build the login form here        
         <form className='form-wrapper' onSubmit={onSubmit}> 
             <div className = 'container'> 
-                <p className ='hello'> Hello </p>               
-                <div className ='signin'>Sign in or <Link to='/'> create an account</Link> </div>          
-                <div className='form-group'> 
+                <p className ='hello'> Hello, Name </p>      
+                <div className ='signin'>Not you? <Link to='/login'> Switch account</Link> </div>                          
+                <div className='form-group'>                 
                     {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
                         Inputs render what they're told - their current value comes from app state.
                         At each keystroke, a change handler fires to change app state. */}     
@@ -37,13 +37,14 @@ export default function Login (props) {
                             <input 
                                 type="text" 
                                 name="username" 
-                                placeholder="Username or Email" 
+                                placeholder="Password" 
                                 onChange={onChange} 
                                 value={values.username} 
                                 /> 
                         </label> 
                     </div>
-                    <button> <Link to='/password'>Continue</Link> </button>
+                    <button> <Link to='/password'>Sign in</Link> </button>
+                    <div> Need help signing in? </div>
                     <div>
                         <label> 
                             <input 
@@ -59,4 +60,9 @@ export default function Login (props) {
             </div>
         </form>
     );
+
+        
+                  
+
+                
 }

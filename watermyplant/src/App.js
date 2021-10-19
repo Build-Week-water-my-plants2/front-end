@@ -72,7 +72,7 @@ const getUsers = () => {
     })
 }
 
-// Helper function to post users date from database
+// Helper function to post users date to database and reset 
 const postNewUser = newUser => {
   //    IMPLEMENT! ON SUCCESS ADD NEWLY CREATED USER TO STATE
   //    helper to [POST] `newUser` to `http://somewhere.com/api/users`
@@ -87,6 +87,31 @@ const postNewUser = newUser => {
     })
 }
 
+// Helper function to set formValues after invoke inputChange() which reset new name and value
+const inputChange = (name, value) => {
+  // RUN VALIDATION WITH YUP - later
+  // validate(name, value);
+  setFormValues({
+    ...formValues,
+    [name]: value // NOT AN ARRAY
+  })
+}
+
+// Helper function to set 
+const formSubmit = () => {
+  const newUser = {
+    // firstname: formValues.firstname.trim(),
+    // lastname: formValues.lastname.trim(),
+    username: formValues.username.trim(),
+    email: formValues.email.trim(),
+    phoneNumber: formValues.phoneNumber.trim(),
+    password: formValues.password.trim()    
+  }  
+  console.log(newUser);
+  postNewFriend(newUser);  
+}
+
+
   return (
     <Router>
       <div className = "App">     
@@ -99,6 +124,7 @@ const postNewUser = newUser => {
           </header>   
           <Login  
             values={formValues}
+            // change={inputChange}
             // update={updateForm}
             // submit={submitForm}
             // errorText={errorText}

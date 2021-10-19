@@ -30,7 +30,7 @@ const initialFormErrors = {
 // const initialUsers = []
 
 // initialUsers data for test which can be delete later in placed by above 
-// TEST TEST TEST !!!!!! - can delete after all requirement full filled
+// TEST TEST TEST !!!!!! - can be deleted after all requirements full filled
 const initialUsers = [
   { 
     // firstname: '',
@@ -69,6 +69,21 @@ const getUsers = () => {
       setUsers(res.data);
     }).catch(err => {
       console.error(err);
+    })
+}
+
+// Helper function to post users date from database
+const postNewUser = newUser => {
+  //    IMPLEMENT! ON SUCCESS ADD NEWLY CREATED USER TO STATE
+  //    helper to [POST] `newUser` to `http://somewhere.com/api/users`
+  //    and regardless of success or failure, the form should reset
+  axios.post('http://somewhere.com/api/users', newUser)
+    .then(res => {
+      setUsers([res.data, ...users]);
+    }).catch(err => {
+      console.error(err);
+    }).finally(() => {
+      setFormValues(initialFormValues);
     })
 }
 

@@ -9,10 +9,47 @@ import Password from './components/Password';
 
 //the shape of the state that drives the form
 const initialFormValues = {
+  // firstname: '',
+  // lastname: '',
   username: '',
   phoneNumber: '',
   password: '',
 }
+
+//the shape of the state that drives the form errors information
+const initialFormErrors = {
+  // firstname: '',
+  // lastname: '',
+  username: '',
+  phoneNumber: '',
+  password: '',
+}
+
+// the shape of the state that drives the users data information 
+// const initialUsers = []
+
+// initialUsers data for test which can be delete later in placed by above 
+const initialUsers = [
+  { 
+    // firstname: '',
+    // lastname: '',
+    username: 'beatlesm',
+    email: 'beatlesm@somecompany.com',
+    phoneNumber: '4151234567',
+    password:'4567WSXedc'
+  },
+  {
+    // firstname: '',
+    // lastname: '',
+    username: 'soooj',
+    email: 'soooj@somecompany.com',
+    phoneNumber: '4151234568',
+    password:'4568EDCrfv'
+  }
+]
+
+// the flag state to enable or disable button
+const initialDisabled = true
 
 function App() {
 // THE STATE TO HOLD ALL VALUES OF THE FORM!

@@ -87,7 +87,7 @@ const postNewUser = newUser => {
     })
 }
 
-// Helper function to set formValues after invoke inputChange() which reset new name and value
+// Helper function to set formValues after invoke inputChange() which reset new name and value of formvalues
 const inputChange = (name, value) => {
   // RUN VALIDATION WITH YUP - later
   // validate(name, value);
@@ -97,7 +97,7 @@ const inputChange = (name, value) => {
   })
 }
 
-// Helper function to set 
+// Helper function to get name and value from form input 
 const formSubmit = () => {
   const newUser = {
     // firstname: formValues.firstname.trim(),
@@ -108,9 +108,8 @@ const formSubmit = () => {
     password: formValues.password.trim()    
   }  
   console.log(newUser);
-  postNewFriend(newUser);  
+  postNewUser(newUser);  
 }
-
 
   return (
     <Router>
@@ -140,8 +139,9 @@ const formSubmit = () => {
           </header>   
           <Password  
             values={formValues}
-            // update={updateForm}
-            // submit={submitForm}
+            change={inputChange}
+            submit={formSubmit}
+            // update={updateForm}            
             // errorText={errorText}
           />  
         </Route>

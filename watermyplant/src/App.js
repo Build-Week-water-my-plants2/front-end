@@ -52,8 +52,11 @@ const initialUsers = [
 const initialDisabled = true
 
 function App() {
-// THE STATE TO HOLD ALL VALUES OF THE FORM!
-const [formValues, setFormValues] = useState(initialFormValues);
+// THE STATEs TO HOLD ALL VALUES OF THE FORM!
+const [formValues, setFormValues] = useState(initialFormValues); // array of user objects
+const [formValues, setFormValues] = useState(initialFormValues) // object
+const [formErrors, setFormErrors] = useState(initialFormErrors) // object
+const [disabled, setDisabled] = useState(initialDisabled)       // boolean
 
   return (
     <Router>

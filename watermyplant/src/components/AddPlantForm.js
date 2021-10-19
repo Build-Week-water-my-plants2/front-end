@@ -6,7 +6,7 @@ const initialPlantValues = {
     id: '',
     nickname: '',
     species: '',
-    h2ofrequency: '',
+    h2oFrequency: '',
     image: ''
 }
 

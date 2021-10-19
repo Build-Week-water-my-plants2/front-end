@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect }  from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import HomePage from './components/HomePage';
+import User from './components/User'
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Password from './components/Password';
@@ -9,10 +10,10 @@ import axios from 'axios';
 
 import constants from './components/data/constants.js';
 
+// BASE_URL,  API_KEY for GET and POST
 const {BASE_URL,  API_KEY} = constants;
-
-console.log('BASE_URL', BASE_URL);
-console.log('API_KEY', API_KEY);
+// open, close for page password, can be cancelled after transfer to page password
+const {open, close} = constants;
 
 //the shape of the state that drives the form
 const initialFormValues = {
@@ -69,7 +70,7 @@ const [disabled, setDisabled] = useState(initialDisabled)       // boolean
 // Helper function to get users date from database
 const getUsers = () => {
   // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
-  // helper to [GET] all users from `http://somewhere.com/api/users` 
+  // helper to [GET] all users from `BASE_URL` 
   axios.get('http://somewhere.com/api/users')
     .then(res => {
       setUsers(res.data);
@@ -81,7 +82,7 @@ const getUsers = () => {
 // Helper function to post users date to database and reset 
 const postNewUser = newUser => {
   //    IMPLEMENT! ON SUCCESS ADD NEWLY CREATED USER TO STATE
-  //    helper to [POST] `newUser` to `http://somewhere.com/api/users`
+  //    helper to [POST] `newUser` to `BASE_URL`
   //    and regardless of success or failure, the form should reset
   axios.post('http://somewhere.com/api/users', newUser)
     .then(res => {
@@ -181,7 +182,26 @@ const formSubmit = () => {
             // submit={submitForm}
             // errorText={errorText}
           />  
-        </Route>               
+        </Route> 
+
+        <Route exact path = "/users">
+
+          <header>
+            <h1 className='site-header'>WaterMyPlant - Users admin Page</h1>
+            <div className='header-links'>   
+              <div>Hi Admin, Name: </div>       
+              <Link to="/signup"> Sign out </Link>           
+            </div>
+          </header> 
+
+          {
+            users.map(user => {
+              return (
+                <User key={user.id} details={user} />
+              )
+            })
+          }  
+        </Route>            
       </div>  
     </Router>    
   );

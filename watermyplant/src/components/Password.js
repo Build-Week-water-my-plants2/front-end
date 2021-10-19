@@ -43,7 +43,7 @@ export default function password (props) {
                                 /> 
                         </label> 
                     </div>
-                    <button> <Link to='/password'>Sign in</Link> </button>
+                    <button> <Link to='/homepage'>Sign in</Link> </button>
                     <div> Need help signing in? </div>
                     <div>
                         <label> 

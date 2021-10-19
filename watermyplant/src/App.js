@@ -15,8 +15,7 @@ const initialFormValues = {
 }
 
 function App() {
-
-  // THE STATE TO HOLD ALL VALUES OF THE FORM!
+// THE STATE TO HOLD ALL VALUES OF THE FORM!
 const [formValues, setFormValues] = useState(initialFormValues);
 
   return (
@@ -52,7 +51,7 @@ const [formValues, setFormValues] = useState(initialFormValues);
           />  
         </Route>
         
-        <Route exact path = "/" >
+        <Route exact path = "/signup" >
           <header>
             <h1 className='site-header'>WaterMyPlant 2.0</h1>
             <div className='header-links'>   
@@ -66,7 +65,22 @@ const [formValues, setFormValues] = useState(initialFormValues);
             // submit={submitForm}
             // errorText={errorText}
           />  
-        </Route>                
+        </Route>     
+        <Route exact path = "/homepage" >
+          <header>
+            <h1 className='site-header'>WaterMyPlant 2.0</h1>
+            <div className='header-links'>   
+              <div>Hi, Name </div>       
+              <Link to="/signup"> Sign out </Link>           
+            </div>
+          </header>  
+          <HomePage  
+            values={formValues}
+            // update={updateForm}
+            // submit={submitForm}
+            // errorText={errorText}
+          />  
+        </Route>               
       </div>  
     </Router>    
   );

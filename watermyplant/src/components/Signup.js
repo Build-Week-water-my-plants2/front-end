@@ -23,8 +23,9 @@ export default function Signup (props) {
       }
 
     return (
-        // build the form here
+        // build the Signup form here
         <form className='form-wrapper' onSubmit={onSubmit}> 
+            {/* class .container and .form-group to render login, signup and password page blocks position */}
             <div className = 'container'> 
                 <p className ='createAcc'> Create an account </p>
                 <div className='form-group'>                     
@@ -63,6 +64,7 @@ export default function Signup (props) {
                         <button> <Link to='/password'>Create account</Link> </button>
                     </div>
                 </div>
+                
             </div>
         </form>
     );

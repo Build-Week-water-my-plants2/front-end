@@ -13,7 +13,7 @@ const User = (props) => {
         <div>
             <h2>{foundUser.name.first}</h2>
             <p>{foundUser.email}</p>
-            {/* <img src={foundUser.picture.medium} /> */}
+            <img src={foundUser.picture.medium} />
         </div>
     )
 }

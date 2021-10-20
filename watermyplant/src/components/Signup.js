@@ -1,5 +1,5 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Signup (props) {
     // destruct the props first
@@ -76,10 +76,10 @@ export default function Signup (props) {
                                 /> 
                         </label>
                         <div className = 'plength'>By Creating an account, you agree to our User Agreement and acknowledge reading our User Privacy Notice.</div>
-                        {/* <button> <Link to='/password'>Create account</Link> </button> */}
-                        <div className='submit'>
+                        <button> <Link to='/users'>Create account</Link> </button>
+                        {/* <div className='submit'>
                             <button>submit create an account</button>
-                        </div>  
+                        </div>   */}
                     </div>
                 </div>
                 

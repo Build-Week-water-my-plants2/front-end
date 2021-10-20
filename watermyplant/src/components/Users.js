@@ -8,17 +8,18 @@ const Users = (props) => {
             <div className="container">
             <p className ='createAcc'> Users information </p>
                 <div className='form-group submit'> 
-
-                    {props.users.map(user => (
-                        <div className="user-wrapper" key={user.uuid}>
-                            <h2>{user.name.first}</h2>
-                            <Link to={`/users/${user.login.uuid}`}>
-                                <img src={user.picture.medium} alt={user.name} />
-                            </Link>
-                            <p>Contact: {user.email}</p>
-                            <p>Location: {user.location.state}</p>
-                        </div>
-                    ))}
+                    <div> 
+                        {props.users.map(user => (
+                            <div className="user-wrapper" key={user.uuid}>
+                                <h2>{user.name.first}</h2>
+                                <Link to={`/users/${user.login.uuid}`}>
+                                    <img src={user.picture.medium} alt={user.name} />
+                                </Link>
+                                <p>Contact: {user.email}</p>
+                                <p>Location: {user.location.state}</p>
+                            </div>
+                        ))}
+                    </div>                    
                 </div>
             </div>
         </form>

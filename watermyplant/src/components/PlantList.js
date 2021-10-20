@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom';
+import axiosWithAuth from "../helpers/axiosWithAuth";
 
 
 const PlantList = (props) => {

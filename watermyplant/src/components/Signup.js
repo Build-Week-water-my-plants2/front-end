@@ -7,14 +7,6 @@ export default function Signup (props) {
 
     const { values, update, submit, errorText } = props
 
-    const {
-        values,
-        submit,
-        change,
-        // disabled,
-        // errors,
-      } = props
-
 
 
     const onChange = evt => {

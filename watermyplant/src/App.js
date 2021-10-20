@@ -240,8 +240,8 @@ const formSubmit = () => {
           <header>
             <h1 className='site-header'>WaterMyPlant 2.0</h1>
             <div className='header-links'>   
-              <div>Already a member? </div>       
-              <Link to="/login"> Sign in </Link>           
+              <div>Click pic to see details </div>       
+              <Link to="/signup">or Logout </Link>           
             </div>
           </header> 
           <Users users={users} />

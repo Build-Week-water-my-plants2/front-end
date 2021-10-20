@@ -36,7 +36,7 @@ function App() {
 
   const getPlants = () => {
     axios.get('https://web46-watermyplants2.herokuapp.com/api/plants')
-     .them(response => {
+     .then(response => {
        setPlants([response.data, ...plants]);
 
      }).catch(error => {

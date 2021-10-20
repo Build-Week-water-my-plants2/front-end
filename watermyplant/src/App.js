@@ -36,7 +36,7 @@ function App() {
 
   const getPlants = () => {
     axios.get('https://web46-watermyplants2.herokuapp.com/api/plants')
-     .them(response => {
+     .then(response => {
        setPlants([response.data, ...plants]);
 
      }).catch(error => {
@@ -100,55 +100,13 @@ function App() {
         <Route exact path ="/login" component={Login} />
         <Route exact path ="/signup" component={Signup} />
 
-        {/* <AddPlantForm
+        <AddPlantForm
           values={formValues}
           change={inputChange}
           submit={formSubmit}
           disabled={disabled}
           errors={formErrors}
-        /> */}
-
-<form>
-
-<label> Nickname
-    <input
-        type = 'text'
-        id = 'nickname'
-        name = 'nickname'
-        value = {plants.nickname}                            
-    />
-</label>
-
-<label> Species
-    <input
-        type = 'text'
-        id = 'species'
-        name = 'species'
-        value = {plants.species}                            
-    />
-</label>
-
-<label> H2O Frequency
-    <select>
-        <option value = 'high'>Twice a Day</option>
-        <option value = 'medium-high'>Once a Day</option>
-        <option value = 'medium'>Twice a Week</option>
-        <option value = 'medium-low'>Once a Week</option>
-        <option value = 'low'>Once a Month</option>
-    </select>
-</label>
-
-<label> Image
-    <input
-        type = 'string'
-        id = 'image'
-        name = 'image'
-        value = {plants.image}                            
-    />
-</label>
-
-<button>Add Plant to List</button>
-</form>
+        />
       </div>
     </Router>
   );

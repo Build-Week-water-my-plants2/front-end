@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom'
 
 export default function Signup (props) {
     // destruct the props first
-    const { values, update, submit, errorText } = props
+    const {
+        values,
+        submit,
+        change,
+        // disabled,
+        // errors,
+      } = props
 
     const onChange = evt => {
         // IMPLEMENT the change handler for our inputs and dropdown
@@ -11,7 +17,7 @@ export default function Signup (props) {
         // b) pull the value of the input from the event object
         // c) use the `update` callback coming in through props
         const {name, value} = evt.target;
-        update(name, value);
+        change(name, value);
     }
     
     const onSubmit = evt => {
@@ -28,11 +34,11 @@ export default function Signup (props) {
             {/* class .container and .form-group to render login, signup and password page blocks position */}
             <div className = 'container'> 
                 <p className ='createAcc'> Create an account </p>
-                <div className='form-group'>                     
+                <div className='form-group submit'>                     
                     {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
                     Inputs render what they're told - their current value comes from app state.
                     At each keystroke, a change handler fires to change app state. */}              
-                    <div>    
+                    <div>                          
                         <label> 
                             <input 
                                 type="text" 
@@ -42,6 +48,15 @@ export default function Signup (props) {
                                 value={values.username} 
                                 /> 
                         </label> 
+                        <label>
+                            <input
+                                type='text'
+                                name='email'                                
+                                placeholder="Email"
+                                onChange={onChange}   
+                                value={values.email}
+                                />
+                        </label>
                         <label> 
                             <input 
                                 type="text" 
@@ -61,7 +76,10 @@ export default function Signup (props) {
                                 /> 
                         </label>
                         <div className = 'plength'>By Creating an account, you agree to our User Agreement and acknowledge reading our User Privacy Notice.</div>
-                        <button> <Link to='/password'>Create account</Link> </button>
+                        <button> <Link to='/users'>Create account</Link> </button>
+                        {/* <div className='submit'>
+                            <button>submit create an account</button>
+                        </div>   */}
                     </div>
                 </div>
                 

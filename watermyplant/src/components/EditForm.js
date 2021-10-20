@@ -6,7 +6,7 @@ const initialPlantForm = {
     id: '',
     nickname: '',
     species: '',
-    h2ofrequency: '',
+    h2oFrequency: '',
     image: ''
 }
 
@@ -29,7 +29,7 @@ const EditForm = () => {
 
         <h1>Edit Plant</h1>
 
-        <div className = "editform">
+        <div className = "editForm">
             <form>
 
                 <label> Nickname:

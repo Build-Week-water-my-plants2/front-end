@@ -31,5 +31,5 @@ const ButtonStyling = styled.button`
     background-color: #d2b48c;
     border-radius: 2rem;
     display: flex;
-  
+    
 `

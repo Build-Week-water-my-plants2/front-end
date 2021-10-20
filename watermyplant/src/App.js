@@ -1,184 +1,156 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect }  from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Password from './components/Password';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import * as yup from 'yup';
+import Schema from './validation/Schema';
+import HomePage from "./components/HomePage";
+import Login from "./components/Login";
+import Signup from './components/Signup';
+import AddPlantForm from './components/AddPlantForm';
 
-//the shape of the state that drives the form
-const initialFormValues = {
-  // firstname: '',
-  // lastname: '',
-  username: '',
-  phoneNumber: '',
-  password: '',
+const initialPlantValues = {
+  id: '',
+  nickname: '',
+  species: '',
+  h2ofrequency: '',
+  image: ''
 }
 
-//the shape of the state that drives the form errors information
-const initialFormErrors = {
-  // firstname: '',
-  // lastname: '',
-  username: '',
-  phoneNumber: '',
-  password: '',
+const initialPlantErrors = {
+  id: '',
+  nickname: '',
+  species: '',
+  h2ofrequency: '',
+  image: ''
 }
 
-// the shape of the state that drives the users data information 
-// const initialUsers = []
-
-// initialUsers data for test which can be delete later in placed by above 
-// TEST TEST TEST !!!!!! - can be deleted after all requirements full filled
-const initialUsers = [
-  { 
-    // firstname: '',
-    // lastname: '',
-    username: 'beatlesm',
-    email: 'beatlesm@somecompany.com',
-    phoneNumber: '4151234567',
-    password:'4567WSXedc'
-  },
-  {
-    // firstname: '',
-    // lastname: '',
-    username: 'soooj',
-    email: 'soooj@somecompany.com',
-    phoneNumber: '4151234568',
-    password:'4568EDCrfv'
-  }
-]
-
-// the flag state to enable or disable button
+const initialPlants = [];
 const initialDisabled = true
 
 function App() {
-// THE STATEs TO HOLD ALL VALUES OF THE FORM!
-const [users, setUsers] = useState(initialUsers); // array of user objects
-const [formValues, setFormValues] = useState(initialFormValues) // object
-const [formErrors, setFormErrors] = useState(initialFormErrors) // object
-const [disabled, setDisabled] = useState(initialDisabled)       // boolean
 
-// Helper function to get users date from database
-const getUsers = () => {
-  // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
-  // helper to [GET] all users from `http://somewhere.com/api/users` 
-  axios.get('http://somewhere.com/api/users')
-    .then(res => {
-      setUsers(res.data);
-    }).catch(err => {
-      console.error(err);
-    })
-}
+  const [plants, setPlants] = useState(initialPlants);
+  const [formValues, setFormValues] = useState(initialPlantValues);
+  const [formErrors, setFormErrors] = useState(initialPlantErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
-// Helper function to post users date to database and reset 
-const postNewUser = newUser => {
-  //    IMPLEMENT! ON SUCCESS ADD NEWLY CREATED USER TO STATE
-  //    helper to [POST] `newUser` to `http://somewhere.com/api/users`
-  //    and regardless of success or failure, the form should reset
-  axios.post('http://somewhere.com/api/users', newUser)
-    .then(res => {
-      setUsers([res.data, ...users]);
-    }).catch(err => {
-      console.error(err);
-    }).finally(() => {
-      setFormValues(initialFormValues);
-    })
-}
+  const getPlants = () => {
+    axios.get('https://web46-watermyplants2.herokuapp.com/api/plants')
+     .them(response => {
+       setPlants([response.data, ...plants]);
 
-// Helper function to set formValues after invoke inputChange() which reset new name and value of formvalues
-const inputChange = (name, value) => {
-  // RUN VALIDATION WITH YUP - later
-  // validate(name, value);
-  setFormValues({
-    ...formValues,
-    [name]: value // NOT AN ARRAY
-  })
-}
+     }).catch(error => {
+       console.error(error);
 
-// Helper function to get name and value from form input 
-const formSubmit = () => {
-  const newUser = {
-    // firstname: formValues.firstname.trim(),
-    // lastname: formValues.lastname.trim(),
-    username: formValues.username.trim(),
-    email: formValues.email.trim(),
-    phoneNumber: formValues.phoneNumber.trim(),
-    password: formValues.password.trim()    
-  }  
-  console.log(newUser);
-  postNewUser(newUser);  
-}
+     }).finally(() => {
+       setFormValues(initialPlantValues);
+     })
+  }
+
+  const postNewPlant = newPlant => {
+    axios.get('https://web46-watermyplants2.herokuapp.com/api/plants/add', newPlant)
+     .then(response => {
+       setPlants([response.data, ...plants]);
+
+     }).catch(error => {
+       console.error(error);
+
+     }).finally(() => {
+       setFormValues(initialPlantValues);
+     })
+  }
+
+  const validate = (nickname, value) => {
+    yup.reach(Schema, nickname)
+       .validate(value)
+       .then(() => setFormErrors({ ...formErrors, [nickname]: ''}))
+       .catch(error => setFormErrors({ ...formErrors, [nickname]: error.errors[0]}))
+  }
+
+  const inputChange = (nickname, value) => {
+    validate(nickname, value)
+    setFormValues({ ...formValues, [nickname]: value})
+  }
+
+  const formSubmit = () => {
+    const newPlant = {
+      id: formValues.id,
+      nickname: formValues.nickname.trim(),
+      species: formValues.species.trim(),
+      h2ofrequency: formValues.h2ofrequency.trim(),
+      image: formValues.image
+    }
+
+    postNewPlant(newPlant)
+  }
+
+  useEffect(() => {
+    getPlants()
+  }, [])
+
+  useEffect(() => {
+    Schema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues])
 
   return (
     <Router>
-      <div className = "App">     
-        <Route exact path = "/login" >        
-          <header>
-            <h1 className='site-header'>WaterMyPlant 2.0</h1>
-            <div className='header-links'>   
-              <div>Tell us what you think</div>                        
-            </div>
-          </header>   
-          <Login  
-            values={formValues}
-            // change={inputChange}
-            // update={updateForm}
-            // submit={submitForm}
-            // errorText={errorText}
-          />  
-        </Route>
+      <div className="App">
+        <h1>Welcome to WaterMyPlants</h1>
 
-        <Route exact path = "/password" >        
-          <header>
-            <h1 className='site-header'>WaterMyPlant 2.0</h1>
-            <div className='header-links'>   
-              <div>Tell us what you think</div>                        
-            </div>
-          </header>   
-          <Password  
-            values={formValues}
-            change={inputChange}
-            submit={formSubmit}
-            // update={updateForm}            
-            // errorText={errorText}
-          />  
-        </Route>
-        
-        <Route exact path = "/signup" >
-          <header>
-            <h1 className='site-header'>WaterMyPlant 2.0</h1>
-            <div className='header-links'>   
-              <div>Already a member? </div>       
-              <Link to="/login"> Sign in </Link>           
-            </div>
-          </header>  
-          <Signup  
-            values={formValues}
-            // update={updateForm}
-            // submit={submitForm}
-            // errorText={errorText}
-          />  
-        </Route>     
-        <Route exact path = "/homepage" >
-          <header>
-            <h1 className='site-header'>WaterMyPlant 2.0</h1>
-            <div className='header-links'>   
-              <div>Hi, Name </div>       
-              <Link to="/signup"> Sign out </Link>           
-            </div>
-          </header>  
-          <HomePage  
-            values={formValues}
-            // update={updateForm}
-            // submit={submitForm}
-            // errorText={errorText}
-          />  
-        </Route>               
-      </div>  
-    </Router>    
+        <Route exact path ="/login" component={Login} />
+        <Route exact path ="/signup" component={Signup} />
+
+        {/* <AddPlantForm
+          values={formValues}
+          change={inputChange}
+          submit={formSubmit}
+          disabled={disabled}
+          errors={formErrors}
+        /> */}
+
+<form>
+
+<label> Nickname
+    <input
+        type = 'text'
+        id = 'nickname'
+        name = 'nickname'
+        value = {plants.nickname}                            
+    />
+</label>
+
+<label> Species
+    <input
+        type = 'text'
+        id = 'species'
+        name = 'species'
+        value = {plants.species}                            
+    />
+</label>
+
+<label> H2O Frequency
+    <select>
+        <option value = 'high'>Twice a Day</option>
+        <option value = 'medium-high'>Once a Day</option>
+        <option value = 'medium'>Twice a Week</option>
+        <option value = 'medium-low'>Once a Week</option>
+        <option value = 'low'>Once a Month</option>
+    </select>
+</label>
+
+<label> Image
+    <input
+        type = 'string'
+        id = 'image'
+        name = 'image'
+        value = {plants.image}                            
+    />
+</label>
+
+<button>Add Plant to List</button>
+</form>
+      </div>
+    </Router>
   );
 }
-
 export default App;

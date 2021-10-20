@@ -3,7 +3,13 @@ import React from 'react'
 
 export default function Signup (props) {
     // destruct the props first
-    const { values, change, submit, errorText } = props
+    const {
+        values,
+        submit,
+        change,
+        // disabled,
+        // errors,
+      } = props
 
     const onChange = evt => {
         // IMPLEMENT the change handler for our inputs and dropdown

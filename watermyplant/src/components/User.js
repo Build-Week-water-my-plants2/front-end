@@ -1,26 +1,21 @@
-import React from 'react'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-export default function User (props) {
-   
-    if (!props) {
-        return <h3>Working fetching the user&apos;s details...</h3>
-      }
-      return (
-        <form className='form-wrapper' >        
-            <div className = 'container'> 
-                {/* <p className ='hello'> Hello UserPage</p>                */}
-                    {/* <div className ='signin'>Sign in or <Link to='/signup'> create an account</Link> </div>           */}
-                <div className='User_container'> 
+const User = (props) => {
+    const { id } = useParams();
 
-                    <h2>id: {props.details.id} </h2>
-                    <h2>username: {props.details.username}</h2>
-                    <p>Email: {props.details.email}</p>
-                    <p>PhoneNumber: {props.details.phoneNumber}</p>
-                    <p>Password: {props.details.password}</p>  
+    const foundUser = props.users.find(user => {
+        return user.login.uuid === id;
+    })
 
-                </div>
-            </div>
-        </form>
-      );
-
+    console.log(foundUser);
+    return (
+        <div>
+            <h2>{foundUser.name.first}</h2>
+            <p>{foundUser.email}</p>
+            {/* <img src={foundUser.picture.medium} /> */}
+        </div>
+    )
 }
+
+export default User;

@@ -1,9 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 export default function password (props) {
 
-    const { values, update, submit, errorText } = props
+    // destruct the props first
+    const {
+        values,
+        submit,
+        change,
+        // disabled,
+        // errors,
+      } = props
 
     const onChange = evt => {
         // IMPLEMENT the change handler for our inputs and dropdown
@@ -11,7 +18,7 @@ export default function password (props) {
         // b) pull the value of the input from the event object
         // c) use the `update` callback coming in through props
         const {name, value} = evt.target;
-        update(name, value);
+        change(name, value);
     }
 
     // IMPLEMENT the submit handler
@@ -27,7 +34,7 @@ export default function password (props) {
         <form className='form-wrapper' onSubmit={onSubmit}> 
             <div className = 'container'> 
                 <p className ='hello'> Hello, Name </p>      
-                <div className ='signin'>Not you? <Link to='/login'> Switch account</Link> </div>                          
+                <div className ='signin'>Change password</div>                          
                 <div className='form-group'>                 
                     {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
                         Inputs render what they're told - their current value comes from app state.
@@ -36,34 +43,39 @@ export default function password (props) {
                         <label> 
                             <input 
                                 type="text" 
-                                name="username" 
-                                placeholder="Password" 
+                                name="oldPassword" 
+                                placeholder="Old password" 
                                 onChange={onChange} 
-                                value={values.username} 
+                                value={values.oldPassword} 
+                                /> 
+                        </label> 
+                        <label> 
+                            <input 
+                                type="text" 
+                                name="newPassword" 
+                                placeholder="New password" 
+                                onChange={onChange} 
+                                value={values.newPassword} 
+                                /> 
+                        </label>
+                        <label> 
+                            <input 
+                                type="text" 
+                                name="newPasswordConfirm" 
+                                placeholder="Confirm new password" 
+                                onChange={onChange} 
+                                value={values.newPasswordConfirm} 
                                 /> 
                         </label> 
                     </div>
-                    <button> <Link to='/homepage'>Sign in</Link> </button>
-
-                    <div> Need help signing in? </div>
-                    <div>
-                        <label> 
-                            <input 
-                                type="checkbox" 
-                                name="staySignedIn" 
-                                
-                                onChange={onChange} 
-                                checked={values.staySignedIn} 
-                            /> <p> Stay signed in </p>
-                            </label>
-                    </div>                                       
+                    <div className='submit'> 
+                            <button>Update Password</button> <br />                            
+                    </div>                                                      
                 </div> 
             </div>
         </form>
     );
-
-        
-                  
+          
 
                 
 }

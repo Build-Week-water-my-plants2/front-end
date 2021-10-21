@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 export default function HomePage (props) {
     // destruct the props first
-    const { values, update, submit, errorText } = props
+    const { value, update, submit, errorText } = props
 
     const onChange = evt => {
         // IMPLEMENT the change handler for our inputs and dropdown
@@ -62,4 +62,3 @@ export default function HomePage (props) {
         </form>
     );
 }
-

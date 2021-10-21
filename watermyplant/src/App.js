@@ -3,9 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import * as yup from 'yup';
 import Schema from './validation/Schema';
-import HomePage from "./components/HomePage";
-import Login from "./components/Login";
-import Signup from './components/Signup';
+import LoginAPP from './components/LoginApp';
 import AddPlantForm from './components/AddPlantForm';
 import styled from 'styled-components';
 
@@ -106,8 +104,7 @@ function App() {
 
         <HeaderTwoStyle><h1>Welcome to WaterMyPlants</h1></HeaderTwoStyle>
 
-        <Route exact path ="/login" component={Login} />
-        <Route exact path ="/signup" component={Signup} />
+        <LoginAPP />
 
         <AddPlantForm
           values={formValues}

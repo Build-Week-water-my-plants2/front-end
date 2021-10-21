@@ -15,7 +15,7 @@ export default function Login (props) {
 
       
     // navigate us to <website base URL>/plantlist
-    console.log('login:', login , !login);
+    console.log('login in Login.JS:', login);
     const history = useHistory();
     // history = []
     const routeToSite = () => {
@@ -64,8 +64,9 @@ export default function Login (props) {
                         </label>                        
                     </div>
                     {/* <button> <Link to='/password'>Continue</Link> </button> */}
+                    
                     <div className='submit'>
-                            <button onClick={routeToSite}>Log in</button>
+                            <button id='loginBtn' onClick={routeToSite}>Log in</button>
                     </div>                           
                 </div> 
             </div>

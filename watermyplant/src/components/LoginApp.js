@@ -9,6 +9,7 @@ import Password from './Password';
 import axios from 'axios';
 
 const initialUsers = [];
+// const initialLogin = false
 
 //the shape of the state that drives the Signup form
 const initialFormValues = {
@@ -36,8 +37,16 @@ const initialFormErrors = {
 // the flag state to enable or disable button
 const initialDisabled = true
 
-function LoginApp() {
+function LoginApp(props) {
+const {
+  login,
+  toggle
+  } = props
+
 // THE STATEs TO HOLD ALL VALUES OF THE FORM!
+// const [login setLogin] = useState(false);
+// const [login, setLogin] = useState(initialLogin);
+console.log('login:', login);  
 const [users, setUsers] = useState(initialUsers); // array of user objects
 const [userRegister, setUserRegister] = useState([]); // array of user objects
 const [userlogin, setUserLogin] = useState([]); // array of user objects
@@ -97,7 +106,8 @@ const formLoginSubmit = () => {
   axios.post('https://web46-watermyplants2.herokuapp.com/api/users/login', newUser)  
   .then(res => {      
     // debugger
-    setUserLogin(res.data);    
+    setUserLogin(res.data); 
+    toggle();  
   }).catch(err => {
     console.error(err);
   }).finally(() => {
@@ -126,7 +136,6 @@ const formPasswordSubmit = () => {
     setFormValues(initialFormValues);
   })      
 }
-
 
 // useEffect(() => {
 // ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES

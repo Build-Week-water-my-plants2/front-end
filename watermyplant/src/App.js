@@ -6,6 +6,8 @@ import Schema from './validation/Schema';
 import LoginAPP from './components/LoginApp';
 import AddPlantForm from './components/AddPlantForm';
 
+const initialLogin = false
+
 const initialPlantValues = {
   id: '',
   nickname: '',
@@ -27,10 +29,16 @@ const initialDisabled = true
 
 function App() {
 
+  const [login, setLogin] = useState(initialLogin);
+  
   const [plants, setPlants] = useState(initialPlants);
   const [formValues, setFormValues] = useState(initialPlantValues);
   const [formErrors, setFormErrors] = useState(initialPlantErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
+
+  const togglelogin = () => {
+    setLogin(current => !current)
+  }
 
   const getPlants = () => {
     axios.get('https://web46-watermyplants2.herokuapp.com/api/plants')
@@ -90,13 +98,16 @@ function App() {
     Schema.isValid(formValues).then(valid => setDisabled(!valid))
   }, [formValues])
 
+  console.log('login: ', login);
   return (
     <Router>
       <div className="App">
         <h1>Welcome to WaterMyPlants</h1>
 
-        <LoginAPP />
-
+        <LoginAPP 
+           login = {login} 
+           toggle={togglelogin}
+          />
         <AddPlantForm
           values={formValues}
           change={inputChange}

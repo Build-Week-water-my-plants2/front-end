@@ -39,6 +39,8 @@ const AddPlantForm = () => {
 
     return (
 
+        
+        
         <FormDivStyle>
         <div> 
 
@@ -93,7 +95,7 @@ const AddPlantForm = () => {
                     </label><br></br>
                     <br></br>
 
-                    <button className = "addBtn"><a href="/">Add Plant to List</a></button>
+                    <button className = "addBtn"><a href="/plantList">Add Plant to List</a></button>
                 </form>
             </div>
         </div> 

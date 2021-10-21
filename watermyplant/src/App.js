@@ -10,7 +10,7 @@ import styled from 'styled-components';
 const HeaderTwoStyle = styled.h2`
   font-size: 2rem;
   font-family: 'Andada Pro', serif;
-  margin-left: 30%;
+  margin-left: 3%;
   color: #00a800;
 `
 
@@ -104,7 +104,7 @@ function App() {
 
         <HeaderTwoStyle><h1>Welcome to WaterMyPlants</h1></HeaderTwoStyle>
 
-        <LoginAPP />
+
 
         <AddPlantForm
           values={formValues}

@@ -5,6 +5,15 @@ import * as yup from 'yup';
 import Schema from './validation/Schema';
 import LoginAPP from './components/LoginApp';
 import AddPlantForm from './components/AddPlantForm';
+import styled from 'styled-components';
+import PlantList from './components/PlantList';
+
+const HeaderTwoStyle = styled.h2`
+  font-size: 2rem;
+  font-family: 'Andada Pro', serif;
+  margin-left: 3%;
+  color: #00a800;
+`
 
 const initialLogin = false
 
@@ -102,19 +111,31 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Welcome to WaterMyPlants</h1>
+
 
         <LoginAPP 
            login = {login} 
            toggle={togglelogin}
           />
         {/* <AddPlantForm
+
+        <HeaderTwoStyle><h1>Welcome to WaterMyPlants</h1></HeaderTwoStyle>
+
+        <AddPlantForm
+
           values={formValues}
           change={inputChange}
           submit={formSubmit}
           disabled={disabled}
           errors={formErrors}
+
         /> */}
+
+        />
+        <Route path="/PlantsList">
+                            <PlantList setPlants={setPlants} plants={plants}/>
+                        </Route>
+
       </div>
     </Router>
   );

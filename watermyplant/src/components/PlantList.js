@@ -1,74 +1,35 @@
-import React, { useEffect } from "react";
-import { useHistory, Link } from 'react-router-dom';
+import React, {useEffect} from "react";
+import axios from "axios";
 import axiosWithAuth from "../helpers/axiosWithAuth";
+import Plant from "./Plants";
 
 
-const PlantList = (props) => {
-    const { plants, isFetching, error } = props;
-    const history = useHistory();
 
-    useEffect(() => {
-        props.getPlants();
-    }, []);
+export default function PlantList(props) {
+    const {plants, set_plant_values} = props;
 
-    if (isFetching) {
-        return <h2>Fetching Plant Stand By...</h2>;
-    }
-    if (error) {
-        return <h2>Error: {error}</h2>;
-    }
 
-    const deleteItem = (plants) => {
-        axiosWithAuth()
-            .delete(`plants/${plants.plant_id}`)
-            .then((res) => {
-                console.log(res);
-                console.log('Plants.plant_id', plants.plant_id);
-                props.deletePlant(plants.plant_id);
-
+        axiosWithAuth().get("https://web46-watermyplants2.herokuapp.com/api/plants")
+            .then(res => {
+                set_plant_values(res.data, ...plants)
+                // console.log(plants)
             })
-            .catch((err) => console.log(err));
-    };
+            .catch(err => {
+                console.error(err)
+            })
 
-    const editPlant = (plants) => {
-        deleteItem(plants);
-        history.push("editPlant");
-    };
 
     return (
-        <PlantList>
-            <header>
-                <h1 id="hide"> Water My Plants </h1>
-                <nav>
-                    <Link to="/"> Home </Link>
-                    <Link to="/plantList"> My Plants </Link>
-                    <Link to="/addPlant"> Add Plants </Link>
-                </nav>
-            </header>
-            <main className="plant-list">
-                {plants.map((plants) => (
-                    <div className="plant-card" key={plants.plant_id}>
-                        <div className="plant-details">
-                            <h2>{plants.nickname}</h2>
-                            <p>Amount of Water Needed: {plants.h2oFrequency}</p>
-                            <p>Species: {plants.species}</p>
-                            <button onClick={() => editPlant(plants)}>Edit</button>{" "}
-                            <button onClick={() => deleteItem(plants)}>Delete</button>
-                        </div>
-                    </div>
-                ))}
-            </main>
-        </PlantList>
-    );
-};
+        <div>
+            {
+                plants.map(plant => {
+                    return (
+                        <Plant key={plant.plants_id} plant={plant}  plants={plants} set_plant_values={set_plant_values}/>
+                    )
+                })
+            }
 
-const mapStateToProps = (state) => {
-    return {
-        plant: state.plantList,
-        isFetching: state.isFetching,
-        error: state.error,
+        </div>
+    )
+}
 
-    };
-};
-
-export default connect(mapStateToProps, { getPlants, fetchFail, deletePlant })(PlantList);

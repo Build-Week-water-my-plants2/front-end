@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import * as yup from 'yup';
 import Schema from './validation/Schema';
 import LoginAPP from './components/LoginApp';
@@ -108,13 +108,13 @@ function App() {
            login = {login} 
            toggle={togglelogin}
           />
-        <AddPlantForm
+        {/* <AddPlantForm
           values={formValues}
           change={inputChange}
           submit={formSubmit}
           disabled={disabled}
           errors={formErrors}
-        />
+        /> */}
       </div>
     </Router>
   );

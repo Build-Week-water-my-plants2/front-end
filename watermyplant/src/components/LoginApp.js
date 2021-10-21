@@ -8,8 +8,10 @@ import Signup from './Signup';
 import Password from './Password';
 import axios from 'axios';
 
+import schema from '../validation/Schema';
+import * as yup from 'yup';
+
 const initialUsers = [];
-// const initialLogin = false
 
 //the shape of the state that drives the Signup form
 const initialFormValues = {
@@ -18,21 +20,11 @@ const initialFormValues = {
   password: ''
 }
 
-//the shape of the state that drives the Login form
-// const initialLoginFormValues = {
-//   username: '',    
-//   password: ''
-// }
-
 //the shape of the state that drives the form errors information
-const initialFormErrors = {
+const initialLoginFormErrors = {
   username: '',
-  phone: '',
-  password: ''
+  password: '',  
 }
-
-// the shape of the state that drives the users data information 
-// const initialUsers = []
 
 // the flag state to enable or disable button
 const initialDisabled = true
@@ -40,34 +32,33 @@ const initialDisabled = true
 function LoginApp(props) {
 const {
   login,
-  toggle
+  toggle,  
   } = props
 
+// console.log('login:', login);  
+
 // THE STATEs TO HOLD ALL VALUES OF THE FORM!
-// const [login setLogin] = useState(false);
-// const [login, setLogin] = useState(initialLogin);
-console.log('login:', login);  
 const [users, setUsers] = useState(initialUsers); // array of user objects
 const [userRegister, setUserRegister] = useState([]); // array of user objects
 const [userlogin, setUserLogin] = useState([]); // array of user objects
 const [formValues, setFormValues] = useState(initialFormValues) // object
 // const [formLoginValues, setFormLoginValues] = useState(initialLoginFormValues) // object
-// const [formErrors, setFormErrors] = useState(initialFormErrors) // object
+const [formErrors, setFormErrors] = useState(initialLoginFormErrors) // object
 // const [disabled, setDisabled] = useState(initialDisabled)       // boolean
 
 //////////////// EVENT HANDLERS ////////////////
-// const validate = (name, value) => {
-//   yup.reach(schema, name)
-//     .validate(value)
-//     .then(() => setFormErrors({ ...formErrors, [name]: '' }))
-//     .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
-// }
+const validate = (name, value) => {
+  yup.reach(schema, name)
+    .validate(value)
+    .then(() => setFormErrors({ ...formErrors, [name]: '' }))
+    .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
+}
 
 // Helper function to set formValues after invoke inputChange() 
 // which reset new name and value of formValues
 const inputChange = (name, value) => {
   // RUN VALIDATION WITH YUP - later
-  // validate(name, value);
+  validate(name, value);
   setFormValues({
     ...formValues,
     [name]: value 
@@ -107,6 +98,7 @@ const formLoginSubmit = () => {
   .then(res => {      
     // debugger
     setUserLogin(res.data); 
+    // Set login true to allow user get in
     toggle();  
   }).catch(err => {
     console.error(err);
@@ -129,7 +121,7 @@ const formPasswordSubmit = () => {
   .then(res => {      
     debugger
     setUsers([res.data, ...users]);
-    console.log('users in POST',users); 
+    // console.log('res.data in formPasswordSubmit',res.data); 
   }).catch(err => {
     console.error(err);
   }).finally(() => {
@@ -153,7 +145,7 @@ const formPasswordSubmit = () => {
           <Signup values={formValues} change={inputChange} submit={formSigninSubmit}
             register = {userRegister}
             // disabled={disabled}
-            // errors={formErrors} 
+            errors={formErrors} 
           />  
         </Route>   
         
@@ -161,9 +153,10 @@ const formPasswordSubmit = () => {
           <header> <h1 className='site-header'>WaterMyPlant 2.0</h1> <div className='header-links'> <div>Tell us what you think</div> </div>
           </header>   
           <Login values={formValues} change={inputChange} submit={formLoginSubmit}
-            login = {userlogin}
+            loginedUserInfo = {userlogin}
+            login = {login} 
             // disabled={disabled}
-            // errors={formErrors}  
+            errors={formErrors}  
           />  
         </Route>
 

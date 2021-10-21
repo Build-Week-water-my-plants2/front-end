@@ -8,18 +8,18 @@ export default function Login (props) {
         values,
         submit,
         change,
-        login,
+        login, 
+        loginedUserInfo,
         // disabled,
-        // errors,
+        errors,
       } = props
-
       
     // navigate us to <website base URL>/plantlist
-    console.log('login in Login.JS:', login);
+
+    // console.log('loginStatus in Login.JS:', loginedUserInfo);
     const history = useHistory();
     // history = []
-    const routeToSite = () => {
-        
+    const routeToSite = () => {        
         //history.push("/login");
     }
 
@@ -31,8 +31,9 @@ export default function Login (props) {
     const onSubmit = evt => {
         evt.preventDefault();
         submit();
-      }
+    }
 
+    console.log('errors: ', errors);
     return (
         // build the login form here        
         <form className='form-wrapper' onSubmit={onSubmit}> 
@@ -53,6 +54,8 @@ export default function Login (props) {
                                 value={values.username} 
                                 /> 
                         </label> 
+                        <div>{errors.username}</div>
+          
                         <label> 
                             <input 
                                 type="text" 
@@ -61,7 +64,8 @@ export default function Login (props) {
                                 onChange={onChange} 
                                 value={values.password} 
                                 /> 
-                        </label>                        
+                        </label>    
+                        <div>{errors.password}</div>                    
                     </div>
                     {/* <button> <Link to='/password'>Continue</Link> </button> */}
                     

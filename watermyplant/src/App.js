@@ -6,6 +6,7 @@ import Schema from './validation/Schema';
 import LoginAPP from './components/LoginApp';
 import AddPlantForm from './components/AddPlantForm';
 import styled from 'styled-components';
+import PlantList from './components/PlantList';
 
 const HeaderTwoStyle = styled.h2`
   font-size: 2rem;
@@ -120,6 +121,9 @@ function App() {
           disabled={disabled}
           errors={formErrors}
         />
+        <Route path="/PlantsList">
+                            <PlantList setPlants={setPlants} plants={plants}/>
+                        </Route>
       </div>
     </Router>
   );

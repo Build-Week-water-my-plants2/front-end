@@ -1,22 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+// import { useState, useEffect }  from 'react';
 
 export default function Login (props) {
+
     // destruct the props first
-    const { values, update, submit, errorText } = props
+    const {
+        values,
+        submit,
+        change,
+        // disabled,
+        // errors,
+      } = props
 
     const onChange = evt => {
-        // IMPLEMENT the change handler for our inputs and dropdown
-        // a) pull the name of the input from the event object
-        // b) pull the value of the input from the event object
-        // c) use the `update` callback coming in through props
         const {name, value} = evt.target;
-        update(name, value);
+        change(name, value);
     }
 
-    // IMPLEMENT the submit handler
-    // a) don't allow the browser to reload!
-    // c) use the `submit` callback coming in through props 
     const onSubmit = evt => {
         evt.preventDefault();
         submit();
@@ -37,24 +38,34 @@ export default function Login (props) {
                             <input 
                                 type="text" 
                                 name="username" 
-                                placeholder="Username or Email" 
+                                placeholder="Username" 
                                 onChange={onChange} 
                                 value={values.username} 
                                 /> 
                         </label> 
-                    </div>
-                    <button> <Link to='/password'>Continue</Link> </button>
-                    <div>
                         <label> 
                             <input 
-                                type="checkbox" 
-                                name="staySignedIn" 
-                                
+                                type="text" 
+                                name="password" 
+                                placeholder="Password" 
                                 onChange={onChange} 
-                                checked={values.staySignedIn} 
-                            /> <p> Stay signed in </p>
-                            </label>
-                    </div>                                       
+                                value={values.password} 
+                                /> 
+                        </label>
+                        {/* <label> 
+                            <input 
+                                type="text" 
+                                name="phone" 
+                                placeholder="Phone Number" 
+                                onChange={onChange} 
+                                value={values.phone} 
+                                /> 
+                        </label> */}
+                    </div>
+                    {/* <button> <Link to='/password'>Continue</Link> </button> */}
+                    <div className='submit'>
+                            <button>Log in</button>
+                    </div>                           
                 </div> 
             </div>
         </form>

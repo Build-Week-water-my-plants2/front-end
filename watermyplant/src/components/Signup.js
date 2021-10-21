@@ -5,17 +5,21 @@ export default function Signup (props) {
     // destruct the props first
     const {
         values,
+        register,
         submit,
         change,
         // disabled,
         // errors,
       } = props
 
-    // navigate us to <website base URL>/items-list
+    // navigate us to <website base URL>/login
     const history = useHistory();
     // history = []
+    console.log(register.username, register.user_id, register.password);  // props ok
+
     const routeToLogin = () => {
-        history.push("/login");
+        
+        // history.push("/login");        
     }
 
     const onChange = evt => {
@@ -79,6 +83,7 @@ export default function Signup (props) {
                         <div className='submit'>
                             <button onClick={routeToLogin}>create an account</button>
                         </div>  
+                        <p> {register.username} has a id: {register.user_id}</p>
                     </div>
                 </div>
                 

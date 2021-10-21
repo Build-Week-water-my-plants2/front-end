@@ -8,15 +8,19 @@ export default function Login (props) {
         values,
         submit,
         change,
+        login,
         // disabled,
         // errors,
       } = props
 
+      
     // navigate us to <website base URL>/plantlist
+    console.log('login:', login , !login);
     const history = useHistory();
     // history = []
     const routeToSite = () => {
-        history.push("/plants");
+        
+        //history.push("/login");
     }
 
     const onChange = evt => {

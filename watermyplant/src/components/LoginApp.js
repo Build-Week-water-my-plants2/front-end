@@ -46,18 +46,6 @@ const [formValues, setFormValues] = useState(initialFormValues) // object
 // const [formErrors, setFormErrors] = useState(initialFormErrors) // object
 // const [disabled, setDisabled] = useState(initialDisabled)       // boolean
 
-console.log('users --- initialUser',users); 
-//////////////// SIDE EFFECTS ////////////////
-// useEffect(() => {
-//   // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
-//   // helper to [GET] all users from `BASE_URL` 
-//   axios.get('https://randomuser.me/api/?results=5')
-//     .then(res => {
-//       // debugger
-//       setUsers([...users, ...res.data.results]);      
-//     }).catch(err => console.error(err));
-// }, [])
-
 //////////////// EVENT HANDLERS ////////////////
 // const validate = (name, value) => {
 //   yup.reach(schema, name)
@@ -96,7 +84,6 @@ const formSigninSubmit = () => {
     setFormValues(initialFormValues);
   })    
 }
-console.log('userRegister in AAA ',userRegister);  
 
 // Helper function to allow user login
 const formLoginSubmit = () => {
@@ -117,7 +104,6 @@ const formLoginSubmit = () => {
     setFormValues(initialFormValues);
   })      
 }
-console.log('userlogin in AAA ',userlogin);  
 
 // Helper function to update user password
 const formPasswordSubmit = () => {
@@ -156,6 +142,7 @@ const formPasswordSubmit = () => {
             <div className='header-links'> <div>Already a member? </div> <Link to="/login"> Sign in </Link> </div>
           </header>  
           <Signup values={formValues} change={inputChange} submit={formSigninSubmit}
+            register = {userRegister}
             // disabled={disabled}
             // errors={formErrors} 
           />  
@@ -165,6 +152,7 @@ const formPasswordSubmit = () => {
           <header> <h1 className='site-header'>WaterMyPlant 2.0</h1> <div className='header-links'> <div>Tell us what you think</div> </div>
           </header>   
           <Login values={formValues} change={inputChange} submit={formLoginSubmit}
+            login = {userlogin}
             // disabled={disabled}
             // errors={formErrors}  
           />  

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-// import { useState, useEffect }  from 'react';
+import { Link, useHistory } from 'react-router-dom'
 
 export default function Login (props) {
 
@@ -9,9 +8,20 @@ export default function Login (props) {
         values,
         submit,
         change,
+        login,
         // disabled,
         // errors,
       } = props
+
+      
+    // navigate us to <website base URL>/plantlist
+    console.log('login in Login.JS:', login);
+    const history = useHistory();
+    // history = []
+    const routeToSite = () => {
+        
+        //history.push("/login");
+    }
 
     const onChange = evt => {
         const {name, value} = evt.target;
@@ -51,20 +61,12 @@ export default function Login (props) {
                                 onChange={onChange} 
                                 value={values.password} 
                                 /> 
-                        </label>
-                        {/* <label> 
-                            <input 
-                                type="text" 
-                                name="phone" 
-                                placeholder="Phone Number" 
-                                onChange={onChange} 
-                                value={values.phone} 
-                                /> 
-                        </label> */}
+                        </label>                        
                     </div>
                     {/* <button> <Link to='/password'>Continue</Link> </button> */}
+                    
                     <div className='submit'>
-                            <button>Log in</button>
+                            <button id='loginBtn' onClick={routeToSite}>Log in</button>
                     </div>                           
                 </div> 
             </div>

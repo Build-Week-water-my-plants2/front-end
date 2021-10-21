@@ -9,6 +9,7 @@ import Password from './Password';
 import axios from 'axios';
 
 const initialUsers = [];
+// const initialLogin = false
 
 //the shape of the state that drives the Signup form
 const initialFormValues = {
@@ -36,24 +37,23 @@ const initialFormErrors = {
 // the flag state to enable or disable button
 const initialDisabled = true
 
-function LoginApp() {
+function LoginApp(props) {
+const {
+  login,
+  toggle
+  } = props
+
 // THE STATEs TO HOLD ALL VALUES OF THE FORM!
+// const [login setLogin] = useState(false);
+// const [login, setLogin] = useState(initialLogin);
+console.log('login:', login);  
 const [users, setUsers] = useState(initialUsers); // array of user objects
+const [userRegister, setUserRegister] = useState([]); // array of user objects
+const [userlogin, setUserLogin] = useState([]); // array of user objects
 const [formValues, setFormValues] = useState(initialFormValues) // object
 // const [formLoginValues, setFormLoginValues] = useState(initialLoginFormValues) // object
 // const [formErrors, setFormErrors] = useState(initialFormErrors) // object
 // const [disabled, setDisabled] = useState(initialDisabled)       // boolean
-
-//////////////// SIDE EFFECTS ////////////////
-useEffect(() => {
-  // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
-  // helper to [GET] all users from `BASE_URL` 
-  axios.get('https://randomuser.me/api/?results=5')
-    .then(res => {
-      // debugger
-      setUsers([...users, ...res.data.results]);      
-    }).catch(err => console.error(err));
-}, [])
 
 //////////////// EVENT HANDLERS ////////////////
 // const validate = (name, value) => {
@@ -85,9 +85,29 @@ const formSigninSubmit = () => {
   // and returns an object {user_id, username, hashed password, phone}
   axios.post('https://web46-watermyplants2.herokuapp.com/api/users/register', newUser)  
   .then(res => {      
-    debugger
-    setUsers([res.data, ...users]);
-    console.log('users in POST',users); 
+    // debugger    
+    setUserRegister(res.data)    
+  }).catch(err => {
+    console.error(err);
+  }).finally(() => {
+    setFormValues(initialFormValues);
+  })    
+}
+
+// Helper function to allow user login
+const formLoginSubmit = () => {
+  const newUser = {    
+    username: formValues.username.trim(),
+    password: formValues.password.trim(),              
+  }    
+  console.log('newUser:', newUser);    
+  // [POST] /api/users/login requires an object in format {username, password} 
+  // and replies with an object in the format {user_id, message, token}
+  axios.post('https://web46-watermyplants2.herokuapp.com/api/users/login', newUser)  
+  .then(res => {      
+    // debugger
+    setUserLogin(res.data); 
+    toggle();  
   }).catch(err => {
     console.error(err);
   }).finally(() => {
@@ -117,27 +137,6 @@ const formPasswordSubmit = () => {
   })      
 }
 
-// Helper function to allow user login
-const formLoginSubmit = () => {
-  const newUser = {    
-    username: formValues.username.trim(),
-    password: formValues.password.trim(),              
-  }    
-  console.log('newUser:', newUser);    
-  // [POST] /api/users/login requires an object in format {username, password} 
-  // and replies with an object in the format {user_id, message, token}
-  axios.post('https://web46-watermyplants2.herokuapp.com/api/users/login', newUser)  
-  .then(res => {      
-    debugger
-    setUsers([res.data, ...users]);
-    console.log('users in POST',users); 
-  }).catch(err => {
-    console.error(err);
-  }).finally(() => {
-    setFormValues(initialFormValues);
-  })      
-}
-
 // useEffect(() => {
 // ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES
 //   schema.isValid(formValues).then(valid => setDisabled(!valid))
@@ -152,6 +151,7 @@ const formLoginSubmit = () => {
             <div className='header-links'> <div>Already a member? </div> <Link to="/login"> Sign in </Link> </div>
           </header>  
           <Signup values={formValues} change={inputChange} submit={formSigninSubmit}
+            register = {userRegister}
             // disabled={disabled}
             // errors={formErrors} 
           />  
@@ -161,6 +161,7 @@ const formLoginSubmit = () => {
           <header> <h1 className='site-header'>WaterMyPlant 2.0</h1> <div className='header-links'> <div>Tell us what you think</div> </div>
           </header>   
           <Login values={formValues} change={inputChange} submit={formLoginSubmit}
+            login = {userlogin}
             // disabled={disabled}
             // errors={formErrors}  
           />  

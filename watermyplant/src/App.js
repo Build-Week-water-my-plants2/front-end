@@ -7,6 +7,14 @@ import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import Signup from './components/Signup';
 import AddPlantForm from './components/AddPlantForm';
+import styled from 'styled-components';
+
+const HeaderTwoStyle = styled.h2`
+  font-size: 2rem;
+  font-family: 'Andada Pro', serif;
+  margin-left: 30%;
+  color: #00a800;
+`
 
 const initialPlantValues = {
   id: '',
@@ -95,7 +103,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Welcome to WaterMyPlants</h1>
+
+        <HeaderTwoStyle><h1>Welcome to WaterMyPlants</h1></HeaderTwoStyle>
 
         <Route exact path ="/login" component={Login} />
         <Route exact path ="/signup" component={Signup} />

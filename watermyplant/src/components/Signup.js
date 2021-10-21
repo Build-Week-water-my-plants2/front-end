@@ -18,9 +18,6 @@ export default function Signup (props) {
 
         update(name, value);
 
-
-        change(name, value);
-
     }
     
     const onSubmit = evt => {
@@ -36,14 +33,7 @@ export default function Signup (props) {
         <form className='form-wrapper' onSubmit={onSubmit}> 
             {/* class .container and .form-group to render login, signup and password page blocks position */}
             <div className = 'container'> 
-                <p className ='createAcc'> Create an account </p>
-
-
-                <div className='form-group'>                     
-                    {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
-                    Inputs render what they're told - their current value comes from app state.
-                    At each keystroke, a change handler fires to change app state. */}              
-                    <div>    
+                <p className ='createAcc'> Create an account </p>  
 
                 <div className='form-group submit'>                     
                     {/* build an `text` of type input for username. Controlled inputs need `value` and `onChange` props.
@@ -60,7 +50,6 @@ export default function Signup (props) {
                                 value={values.username} 
                                 /> 
                         </label> 
-
 
                         <label>
                             <input

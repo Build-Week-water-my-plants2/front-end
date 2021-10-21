@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 
 export default function Signup (props) {
     // destruct the props first
@@ -9,6 +10,13 @@ export default function Signup (props) {
         // disabled,
         // errors,
       } = props
+
+    // navigate us to <website base URL>/items-list
+    const history = useHistory();
+    // history = []
+    const routeToLogin = () => {
+        history.push("/login");
+    }
 
     const onChange = evt => {
         // IMPLEMENT the change handler for our inputs and dropdown
@@ -69,7 +77,7 @@ export default function Signup (props) {
                         <div className = 'plength'>By Creating an account, you agree to our User Agreement and acknowledge reading our User Privacy Notice.</div>
                         {/* <button> <Link to='/users'>Link to users</Link> </button> */}
                         <div className='submit'>
-                            <button>create an account</button>
+                            <button onClick={routeToLogin}>create an account</button>
                         </div>  
                     </div>
                 </div>

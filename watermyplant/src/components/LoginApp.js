@@ -39,21 +39,24 @@ const initialDisabled = true
 function LoginApp() {
 // THE STATEs TO HOLD ALL VALUES OF THE FORM!
 const [users, setUsers] = useState(initialUsers); // array of user objects
+const [userRegister, setUserRegister] = useState([]); // array of user objects
+const [userlogin, setUserLogin] = useState([]); // array of user objects
 const [formValues, setFormValues] = useState(initialFormValues) // object
 // const [formLoginValues, setFormLoginValues] = useState(initialLoginFormValues) // object
 // const [formErrors, setFormErrors] = useState(initialFormErrors) // object
 // const [disabled, setDisabled] = useState(initialDisabled)       // boolean
 
+console.log('users --- initialUser',users); 
 //////////////// SIDE EFFECTS ////////////////
-useEffect(() => {
-  // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
-  // helper to [GET] all users from `BASE_URL` 
-  axios.get('https://randomuser.me/api/?results=5')
-    .then(res => {
-      // debugger
-      setUsers([...users, ...res.data.results]);      
-    }).catch(err => console.error(err));
-}, [])
+// useEffect(() => {
+//   // IMPLEMENT! ON SUCCESS PUT USERS IN STATE
+//   // helper to [GET] all users from `BASE_URL` 
+//   axios.get('https://randomuser.me/api/?results=5')
+//     .then(res => {
+//       // debugger
+//       setUsers([...users, ...res.data.results]);      
+//     }).catch(err => console.error(err));
+// }, [])
 
 //////////////// EVENT HANDLERS ////////////////
 // const validate = (name, value) => {
@@ -85,15 +88,36 @@ const formSigninSubmit = () => {
   // and returns an object {user_id, username, hashed password, phone}
   axios.post('https://web46-watermyplants2.herokuapp.com/api/users/register', newUser)  
   .then(res => {      
-    debugger
-    setUsers([res.data, ...users]);
-    console.log('users in POST',users); 
+    // debugger    
+    setUserRegister(res.data)    
+  }).catch(err => {
+    console.error(err);
+  }).finally(() => {
+    setFormValues(initialFormValues);
+  })    
+}
+console.log('userRegister in AAA ',userRegister);  
+
+// Helper function to allow user login
+const formLoginSubmit = () => {
+  const newUser = {    
+    username: formValues.username.trim(),
+    password: formValues.password.trim(),              
+  }    
+  console.log('newUser:', newUser);    
+  // [POST] /api/users/login requires an object in format {username, password} 
+  // and replies with an object in the format {user_id, message, token}
+  axios.post('https://web46-watermyplants2.herokuapp.com/api/users/login', newUser)  
+  .then(res => {      
+    // debugger
+    setUserLogin(res.data);    
   }).catch(err => {
     console.error(err);
   }).finally(() => {
     setFormValues(initialFormValues);
   })      
 }
+console.log('userlogin in AAA ',userlogin);  
 
 // Helper function to update user password
 const formPasswordSubmit = () => {
@@ -117,26 +141,6 @@ const formPasswordSubmit = () => {
   })      
 }
 
-// Helper function to allow user login
-const formLoginSubmit = () => {
-  const newUser = {    
-    username: formValues.username.trim(),
-    password: formValues.password.trim(),              
-  }    
-  console.log('newUser:', newUser);    
-  // [POST] /api/users/login requires an object in format {username, password} 
-  // and replies with an object in the format {user_id, message, token}
-  axios.post('https://web46-watermyplants2.herokuapp.com/api/users/login', newUser)  
-  .then(res => {      
-    debugger
-    setUsers([res.data, ...users]);
-    console.log('users in POST',users); 
-  }).catch(err => {
-    console.error(err);
-  }).finally(() => {
-    setFormValues(initialFormValues);
-  })      
-}
 
 // useEffect(() => {
 // ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES

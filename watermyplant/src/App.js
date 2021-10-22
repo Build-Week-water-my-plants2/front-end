@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import './App.css';
 import { Route, Switch } from "react-router-dom";
 
-import PrivateRoute from "./components/PrivateRoute";
+
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import PlantForm from "./components/PlantForm";
@@ -25,15 +25,15 @@ function App() {
             </div>
                 <div id="app-body">
                     <Switch>
-                        <PrivateRoute path="/profile">
+                        <Route path="/profile">
                             <UserProfile />
-                        </PrivateRoute>
-                        <PrivateRoute path="/PlantForm">
+                        </Route>
+                        <Route path="/PlantForm">
                             <PlantForm plants = {plants} set_plant_values={set_plant_values}/>
-                        </PrivateRoute>
-                        <PrivateRoute path="/PlantList">
+                        </Route>
+                        <Route path="/PlantList">
                             <PlantList set_plant_values={set_plant_values} plants={plants}/>
-                        </PrivateRoute>
+                        </Route>
                         <Route path="/signup">
                             <Signup />
                         </Route>

@@ -131,11 +131,7 @@ function App() {
 
         /> */}
 
-        />
-        <Route path="/PlantsList">
-                            <PlantList setPlants={setPlants} plants={plants}/>
-                        </Route>
-
+      
       </div>
     </Router>
   );

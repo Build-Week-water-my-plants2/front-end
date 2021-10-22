@@ -1,81 +1,134 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, useParams} from 'react-router-dom';
-import axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import * as yup from "yup";
+import Schema from "../validation/Schema"
+import axiosWithAuth from "./axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
-const initialPlantForm = {
-    id: '',
-    nickname: '',
-    species: '',
-    h2oFrequency: '',
-    image: ''
+
+const initialDisabled = true;
+const initialFormValues = {
+    nickname: "",
+    species: "",
+    h2oFrequency: "",
+    image:""
 }
-
-const EditForm = () => {
-    const [plants, setPlants] = useState(initialPlantForm);
+const initialFormErrors={
+    nickname:"",
+    species:"",
+    h2oFrequency:"",
+    image:""
+}
+export default function EditForm(props){
+    const { plant, isToggled} = props
     const {push} = useHistory();
+    const [editFormValues, setEditFormValues] = useState(initialFormValues);
+    const [disabled, setDisabled] = useState(initialDisabled);
+    const [errors, setErrors]=useState(initialFormErrors);
 
-    const changeHandler = event => {
-        event.persist()
-        setPlants({ ...plants, [event.target.name]: event.target.value })
+
+    const edit_plant = (newPlant) => {
+        
+        axiosWithAuth().put(`https://web46-watermyplants2.herokuapp.com/api/plants/put/:id`,newPlant)
+            .then(res => { 
+                setEditFormValues(initialFormValues)
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
-    // add useEffect 
+    const validate = (name, value) => {
+        yup.reach(Schema, name)
+            .validate(value)
+            .then(() => setErrors({...errors, [name]:""}) )
+            .catch(err => setErrors({errors, [name]: err.errors[0]}))
+    }
 
-    
-    // add savePlant onSubmit
+    const change= (name, value) =>{
+        setEditFormValues({ ...editFormValues, [name]: value });
+        validate(name, value);
 
-    return (
-        <>
+    }
 
-        <h1>Edit Plant</h1>
+    const form_submit = () => {
+        const new_plant = {
+            nickname: editFormValues.nickname.trim(),
+            species: editFormValues.species.trim(),
+            h2oFrequency: editFormValues.h2oFrequency.trim(),
+            image: editFormValues.image.trim()
+        }
+        edit_plant(new_plant);
+    }
 
-        <div className = "editForm">
-            <form>
+    useEffect(() => {
+        Schema.isValid(editFormValues).then(valid => setDisabled(!valid))
+    },[editFormValues])
 
-                <label> Nickname:
+
+    const onSubmit = evt => {
+        evt.preventDefault();
+        form_submit();
+    }
+
+    const onChange = evt => {
+        const name = evt.target.name;
+        const value = evt.target.value;
+        change(name, value);
+    }
+
+    return(
+       
+        <form className='plant-form-container' onSubmit={onSubmit} >
+            <div className='form-inputs submit'>
+                <h2>Edit New Plant</h2>
+                <div className='errors'>
+                    <div>{errors.nickname}</div>
+                    <div>{errors.species}</div>
+                    <div>{errors.h2oFrequency}</div>
+                    <div>{errors.image}</div>
+                </div>
+            </div>
+
+            <div className='form-group-inputs'>
+                <h3>User Information</h3>
+                <label>Nickname &nbsp;
                     <input
-                        type = 'text'
-                        name = 'nickname'
-                        value = {plants.nickname}
-                        onChange = {changeHandler}
+                        value={editFormValues.nickname}
+                        onChange={onChange}
+                        name='nickname'
+                        type='text'
+                        placeholder={`Give a new nickname to ${plant.nickname} `}
                     />
                 </label>
-
-                <label> Species:
+                <label>Species &nbsp;
                     <input
-                        type = 'text'
-                        name = 'species'
-                        value = {plants.species}
-                        onChange = {changeHandler}
+                        value={editFormValues.species}
+                        onChange={onChange}
+                        name='species'
+                        type='text'
+                        placeholder={`Edit species of ${plant.nickname}`}
                     />
                 </label>
-
-                <label> H2O Frequency
-                        <select>
-                            <option value = 'high'>Twice a Day</option>
-                            <option value = 'medium-high'>Once a Day</option>
-                            <option value = 'medium'>Twice a Week</option>
-                            <option value = 'medium-low'>Once a Week</option>
-                            <option value = 'low'>Once a Month</option>
-                        </select>
+                <label>How often do you water this plant? &nbsp;
+                    <select name="h2oFrequency" onChange={onChange}>
+                        <option value="">--Select One--</option>
+                        <option value="Once a day">Once a day</option>
+                        <option value="Every other day">Every other day</option>
+                        <option value="Once a week">Once a week</option>
+                        <option value="Twice a week">Twice a week</option>
+                    </select><br/><br/>
                 </label>
-
-                <label> Image
-                        <input
-                            type = 'string'
-                            id = 'image'
-                            name = 'image'
-                            value = {plants.image}
-                            onChange = {changeHandler}                      
-                        />
-                </label>
-
-                    <button>Save Changes</button>
-
-            </form>
-        </div>
-        </>
+                <label>Image: &nbsp;
+                    <input
+                        type="text"
+                        onChange={onChange}
+                        name='image'
+                        value={editFormValues.image}
+                    />
+                </label><br/>
+                <button disabled={disabled} className="save-plant">Save New Plant</button>
+            </div>
+        </form>
+        
     )
 }
-
-export default EditForm;

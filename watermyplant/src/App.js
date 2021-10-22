@@ -1,139 +1,51 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import {BrowserRouter as Router} from "react-router-dom";
-import * as yup from 'yup';
-import Schema from './validation/Schema';
-import LoginAPP from './components/LoginApp';
-import AddPlantForm from './components/AddPlantForm';
-import styled from 'styled-components';
-import PlantList from './components/PlantList';
+import React, { useState } from "react"
+import './App.css';
+import { Route, Switch } from "react-router-dom";
 
-const HeaderTwoStyle = styled.h2`
-  font-size: 2rem;
-  font-family: 'Andada Pro', serif;
-  margin-left: 3%;
-  color: #00a800;
-`
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import PlantForm from "./components/PlantForm";
+import Home from "./components/Home";
+import Footer from "./components/Footer";
+import PlantList from "./components/PlantList";
+import Header from "./components/Header"
+import UserProfile from "./components/UserProfile";
 
-const initialLogin = false
 
-const initialPlantValues = {
-  id: '',
-  nickname: '',
-  species: '',
-  h2ofrequency: '',
-  image: ''
-}
-
-const initialPlantErrors = {
-  id: '',
-  nickname: '',
-  species: '',
-  h2ofrequency: '',
-  image: ''
-}
-
-const initialPlants = [];
-const initialDisabled = true
+const initial_plant_values = [];
 
 function App() {
+    const [plants, set_plant_values] = useState(initial_plant_values);
 
-  const [login, setLogin] = useState(initialLogin);
-  
-  const [plants, setPlants] = useState(initialPlants);
-  const [formValues, setFormValues] = useState(initialPlantValues);
-  const [formErrors, setFormErrors] = useState(initialPlantErrors);
-  const [disabled, setDisabled] = useState(initialDisabled);
-
-  const togglelogin = () => {
-    setLogin(current => !current)
-  }
-
-  const getPlants = () => {
-    axios.get('https://web46-watermyplants2.herokuapp.com/api/plants')
-     .then(response => {
-       setPlants([response.data, ...plants]);
-
-     }).catch(error => {
-       console.error(error);
-
-     }).finally(() => {
-       setFormValues(initialPlantValues);
-     })
-  }
-
-  const postNewPlant = newPlant => {
-    axios.get('https://web46-watermyplants2.herokuapp.com/api/plants/add', newPlant)
-     .then(response => {
-       setPlants([response.data, ...plants]);
-
-     }).catch(error => {
-       console.error(error);
-
-     }).finally(() => {
-       setFormValues(initialPlantValues);
-     })
-  }
-
-  const validate = (nickname, value) => {
-    yup.reach(Schema, nickname)
-       .validate(value)
-       .then(() => setFormErrors({ ...formErrors, [nickname]: ''}))
-       .catch(error => setFormErrors({ ...formErrors, [nickname]: error.errors[0]}))
-  }
-
-  const inputChange = (nickname, value) => {
-    validate(nickname, value)
-    setFormValues({ ...formValues, [nickname]: value})
-  }
-
-  const formSubmit = () => {
-    const newPlant = {
-      id: formValues.id,
-      nickname: formValues.nickname.trim(),
-      species: formValues.species.trim(),
-      h2ofrequency: formValues.h2ofrequency.trim(),
-      image: formValues.image
-    }
-
-    postNewPlant(newPlant)
-  }
-
-  useEffect(() => {
-    getPlants()
-  }, [])
-
-  useEffect(() => {
-    Schema.isValid(formValues).then(valid => setDisabled(!valid))
-  }, [formValues])
-
-  console.log('login: ', login);
-  return (
-    <Router>
-      <div className="App">
-
-
-        <LoginAPP 
-           login = {login} 
-           toggle={togglelogin}
-          />
-        {/* <AddPlantForm
-
-        <HeaderTwoStyle><h1>Welcome to WaterMyPlants</h1></HeaderTwoStyle>
-
-        <AddPlantForm
-
-          values={formValues}
-          change={inputChange}
-          submit={formSubmit}
-          disabled={disabled}
-          errors={formErrors}
-
-        /> */}
-
-      
-      </div>
-    </Router>
-  );
+    return (
+        <div className="App">
+            <div>
+                <Header />
+            </div>
+                <div id="app-body">
+                    <Switch>
+                        <PrivateRoute path="/profile">
+                            <UserProfile />
+                        </PrivateRoute>
+                        <PrivateRoute path="/PlantForm">
+                            <PlantForm plants = {plants} set_plant_values={set_plant_values}/>
+                        </PrivateRoute>
+                        <PrivateRoute path="/PlantList">
+                            <PlantList set_plant_values={set_plant_values} plants={plants}/>
+                        </PrivateRoute>
+                        <Route path="/signup">
+                            <Signup />
+                        </Route>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/">
+                            <Home />
+                        </Route>
+                    </Switch>
+                </div>
+            <Footer/>
+        </div>
+    )
 }
+
 export default App;

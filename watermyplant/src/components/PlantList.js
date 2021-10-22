@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import axios from "axios";
-import axiosWithAuth from "../helpers/axiosWithAuth";
-import Plant from "./Plants";
+import axiosWithAuth from "./axiosWithAuth";
+import Plant from "./Plant";
 
 
 

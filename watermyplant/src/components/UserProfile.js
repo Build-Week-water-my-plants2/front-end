@@ -1,0 +1,79 @@
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
+// import "./UserProfile.css";
+import axiosWithAuth from "./axiosWithAuth";
+
+const initialValues = {
+    username: "",
+    password:"",
+    phoneNumber: ""
+};
+
+export default function UserProfile() {
+    const { push } = useHistory();
+    const [formValues, setFormValues] = useState(initialValues);
+
+    const handleChange = (evt) => {
+        setFormValues({
+            ...formValues,
+            [evt.target.name]: evt.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axiosWithAuth().put('https://watermyplantsweb46.herokuapp.com/api/users', formValues)
+            .then((res) => {
+
+                push('./profile');
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+            .finally(() => {
+                setFormValues(initialValues)
+            })
+    };
+
+
+    return (
+        <>
+            <div id="profile-container">
+                <form id="user-form" onSubmit={handleSubmit}>
+
+                    <div id="inner-div">
+                        <div>
+                            <label htmlFor="username">Username:</label>
+                            <input
+                                value={formValues.username}
+                                id="username"
+                                name="username"
+                                type="text"
+                                onChange={handleChange}
+                            />
+                            <label htmlFor="password">Password:</label>
+                            <input
+                                value={formValues.password}
+                                id="password"
+                                name="password"
+                                type="password"
+                                onChange={handleChange}
+                            />
+                            <label htmlFor="phoneNumber">Phone Number:</label>
+                            <input
+                                value={formValues.phoneNumber}
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                type="tel"
+                                onChange={handleChange}
+                            />
+                            <div className="errors">
+                            </div>
+                        </div>
+                        <button>Save</button>
+                    </div>
+                </form>
+            </div>
+        </>
+    )
+}

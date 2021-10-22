@@ -1,29 +1,28 @@
-import * as yup from 'yup';
+import * as yup from "yup";
 
-const Schema = yup.object().shape({
-    nickname: yup 
-            .string()
-            .trim()
-            .required("Enter the plant's Nickname Here"),
 
+const form_schema = yup.object().shape({
+
+    nickname: yup
+        .string()
+        .trim()
+        .min(2, "Nickname must be at least 2 characters")
+        .required("Nickname is required."),
     species: yup
-            .string()
-            .required("Enter the plant's Species Here"),
-
-    username: yup
-            .string()
-            .required('Username is required ya chump!'),
-            
-    password: yup
-            .string()
-            .required('Email is required!'),
-         
-    email: yup
-            .string()
-            .email("Email")
-            .required('Email is required!'),
-          
+        .string()
+        .trim()
+        .min(2, "Species name must be at least 2 characters")
+        .required("Species is required."),
+    h2oFrequency: yup
+        .string()
+        .oneOf(["Once a Day", "Every other day", "Once a week", "Twice a week"],
+                "Please choose watering schedule: ")
+        .required("Watering schedule is required."),
+    image:yup
+        .string()
+        .trim()
 
 })
 
-export default Schema;
+
+export default form_schema;
